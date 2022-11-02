@@ -93,12 +93,11 @@ with open(f, "r") as fh, open(o, "w") as of:
                 strand = "+"
             parsed = parse_cigar(cigar)
             #print(len(read_dict), chr)
-            if chr != curr_chrom:
-                if curr_chrom is not None:
-                    # TODO: print all lines in the dictionary
+            if chr != curr_chrom: 
+                if curr_chrom is not None: ##dealing with the first line
                     for k, v in read_dict.items():
                         print(v, file=of)
-                    read_dict.clear() ##reset dictionary for the first read
+                    read_dict.clear() ##reset dictionary for the first read when finding different chr
                 curr_chrom = chr
             if umi in umi_list:
                 adj_pos = adjust_pos(pos, is_minus, parsed)
@@ -111,7 +110,7 @@ with open(f, "r") as fh, open(o, "w") as of:
                 print(line, file=wrong_umis)
     for k, v in read_dict.items():
         print(v, file=of)
-    read_dict.clear() ##reset dictionary for the first read
+    read_dict.clear() ##reset dictionary for the last read
 
             #print(read_dict)
 of.close()
